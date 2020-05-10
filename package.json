@@ -1,14 +1,6 @@
 {
   "name": "wh-web",
   "version": "0.0.0",
-  "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
-  },
   "private": true,
   "dependencies": {
     "@angular/animations": "~9.1.6",
@@ -45,5 +37,15 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~3.8.3"
+  },
+  "scripts": {
+    "build": "ng build",
+    "docker:build": "docker build -t wh-web .",
+    "docker:run": "docker run -p 4200:4200 -e PORT=4200 -d wh-web",
+    "ng": "ng",
+    "e2e": "ng e2e",
+    "lint": "ng lint",
+    "test": "ng test",
+    "start": "ng serve"
   }
 }
