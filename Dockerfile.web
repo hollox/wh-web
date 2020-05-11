@@ -10,8 +10,8 @@ COPY angular.json ./
 copy ngsw-config.json ./
 COPY tsconfig.json ./
 COPY tsconfig.app.json ./
-RUN npm install -g @angular/cli
-RUN ng build --configuration=production
+RUN ["npm", "install", "-g", "@angular/cli"]
+RUN ["ng", "build", "--configuration=production"]
 
 FROM nginx
 WORKDIR /wh-web
