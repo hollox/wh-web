@@ -40,6 +40,8 @@
   },
   "scripts": {
     "build": "ng build",
+    "deploy:production": "./deploy.sh wh-web-prod",
+    "deploy:staging": "./deploy.sh wh-web-staging",
     "docker:build": "docker build -t wh-web .",
     "docker:run": "docker run -p 4200:4200 -e PORT=4200 -d wh-web",
     "ng": "ng",
