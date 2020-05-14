@@ -8,9 +8,9 @@ import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
-
-  authenticationClient$ = (from(
+export class AuthService {
+  // Create an observable of Auth0 instance of client
+  auth0Client$ = (from(
     createAuth0Client({
       domain: "worldhoster.auth0.com",
       client_id: "8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6",
@@ -24,11 +24,11 @@ export class AuthenticationService {
   // For each Auth0 SDK method, first ensure the client instance is ready
   // concatMap: Using the client instance, call SDK method; SDK returns a promise
   // from: Convert that resulting promise into an observable
-  isAuthenticated$ = this.authenticationClient$.pipe(
+  isAuthenticated$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.isAuthenticated())),
-    tap((res: boolean) => this.loggedIn = res)
+    tap(res => this.loggedIn = res)
   );
-  handleRedirectCallback$ = this.authenticationClient$.pipe(
+  handleRedirectCallback$ = this.auth0Client$.pipe(
     concatMap((client: Auth0Client) => from(client.handleRedirectCallback()))
   );
   // Create subject and public observable of user profile data
@@ -48,7 +48,7 @@ export class AuthenticationService {
   // When calling, options can be passed if desired
   // https://auth0.github.io/auth0-spa-js/classes/auth0client.html#getuser
   getUser$(options?): Observable<any> {
-    return this.authenticationClient$.pipe(
+    return this.auth0Client$.pipe(
       concatMap((client: Auth0Client) => from(client.getUser(options))),
       tap(user => this.userProfileSubject$.next(user))
     );
@@ -75,12 +75,11 @@ export class AuthenticationService {
     // A desired redirect path can be passed to login method
     // (e.g., from a route guard)
     // Ensure Auth0 client instance exists
-    this.authenticationClient$.subscribe((client: Auth0Client) => {
+    this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log in
       client.loginWithRedirect({
         redirect_uri: `${window.location.origin}`,
-        appState: { target: redirectPath },
-        scope: "customer employee manager"
+        appState: { target: redirectPath }
       });
     });
   }
@@ -115,7 +114,7 @@ export class AuthenticationService {
 
   logout() {
     // Ensure Auth0 client instance exists
-    this.authenticationClient$.subscribe((client: Auth0Client) => {
+    this.auth0Client$.subscribe((client: Auth0Client) => {
       // Call method to log out
       client.logout({
         client_id: "8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6",
