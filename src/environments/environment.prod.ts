@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  ticketsBaseUrl: "http://tickets-api.worldhoster.live/"
+  ticketsBaseUrl: "https://tickets-api.worldhoster.live/"
 };

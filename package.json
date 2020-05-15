@@ -42,7 +42,7 @@
   "scripts": {
     "build": "ng build",
     "deploy:dev": "git push https://git.heroku.com/wh-web-dev.git master",
-    "deploy:production": "git push https://git.heroku.com/wh-web-prod.git master",
+    "deploy:prod": "git push https://git.heroku.com/wh-web-prod.git master",
     "deploy:staging": "git push https://git.heroku.com/wh-web-staging.git master",
     "docker:build": "docker build -f ./Dockerfile.web -t wh-web .",
     "docker:run": "docker run -p 4200:4200 -e PORT=4200 -d wh-web",
