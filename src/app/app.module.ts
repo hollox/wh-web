@@ -8,6 +8,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ProfileComponent } from './profile/profile.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TicketsService} from "../tickets/tickets.service";
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { ProfileComponent } from './profile/profile.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
