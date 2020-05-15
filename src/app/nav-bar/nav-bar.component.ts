@@ -17,29 +17,14 @@ export class NavBarComponent implements OnInit {
 
   tickets = [] as Ticket[];
 
-  constructor(private http: HttpClient, public authService: AuthService, public ticketsService: TicketsService) {
-    console.log({http: this.http});
+  constructor(public authService: AuthService, public ticketsService: TicketsService) {
   }
 
   ngOnInit() {
-    console.log({http: this.http});
-    this.authService.getTokenSilently$().subscribe((token: string) => {
-      console.log({token});
-      this.getTickets$(token).subscribe((tickets: Ticket[]) => {
-        console.log(tickets);
-        this.tickets = tickets;
-      });
-    })
-  }
-
-  getTickets$(token: string): Observable<Ticket[]> {
-    console.log({http: this.http});
-    return this.http.get<TicketJson[]>(`${environment.ticketsBaseUrl}v1/tickets`, {
-      headers: {
-        "Authorization": `Bearer ${token}`
-      }
-    }).pipe(
-      map(convertTicketsJsonToModel)
-    )
+    this.authService.getTokenSilently$().pipe(
+      mergeMap((token: string) => this.ticketsService.getTickets$(token))).subscribe((tickets: Ticket[]) => {
+      console.log(tickets);
+      this.tickets = tickets;
+    });
   }
 }
