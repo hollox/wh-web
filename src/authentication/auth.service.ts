@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import createAuth0Client from '@auth0/auth0-spa-js';
 import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
-import { tap, catchError, concatMap, shareReplay } from 'rxjs/operators';
+import {tap, catchError, concatMap, shareReplay, mergeMap, map} from 'rxjs/operators';
 import { Router } from '@angular/router';
-import {GetTokenSilentlyOptions} from "@auth0/auth0-spa-js/src/global";
+import {GetIdTokenClaimsOptions, GetTokenSilentlyOptions, IdToken} from "@auth0/auth0-spa-js/src/global";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,8 @@ export class AuthService {
     createAuth0Client({
       domain: "worldhoster.auth0.com",
       client_id: "8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6",
-      redirect_uri: `${window.location.origin}`
+      redirect_uri: `${window.location.origin}`,
+      scope: "openid"
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
@@ -85,10 +86,10 @@ export class AuthService {
     });
   }
 
-  getTokenSilently$(options?: GetTokenSilentlyOptions): Observable<string> {
+  getToken$(options?: GetIdTokenClaimsOptions): Observable<any> {
     return this.auth0Client$.pipe(
-      concatMap((client: Auth0Client) => from(client.getTokenSilently(options)))
-    );
+      mergeMap((client: Auth0Client) => from(client.getIdTokenClaims(options)).pipe(map((token: IdToken) => token.__raw))
+    ));
   }
 
   private handleAuthCallback() {

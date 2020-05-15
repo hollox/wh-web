@@ -21,8 +21,11 @@ export class NavBarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.authService.getTokenSilently$().pipe(
-      mergeMap((token: string) => this.ticketsService.getTickets$(token))).subscribe((tickets: Ticket[]) => {
+    this.authService.getToken$().pipe(
+      mergeMap((token: string) => {
+        console.log({token});
+        return this.ticketsService.getTickets$(token)
+      })).subscribe((tickets: Ticket[]) => {
       console.log(tickets);
       this.tickets = tickets;
     });
