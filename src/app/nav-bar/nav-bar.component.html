@@ -1,4 +1,6 @@
 <header>
+  <a routerLink="/">Home</a>&nbsp;
+  <a routerLink="profile" *ngIf="authService.loggedIn">Profile</a>
 
   <span>loggedIn={{authService.loggedIn}}</span>
 
