@@ -1,3 +1,9 @@
-<app-header title="Ticket {{route.snapshot.params.ticketId}}"></app-header>
+<ng-container *ngIf="route.snapshot.params.ticketId; then existingTicket else newTicket"></ng-container>
 
+<ng-template #existingTicket>
+  <app-header title="Ticket {{route.snapshot.params.ticketId}}"></app-header>
+</ng-template>
 
+<ng-template #newTicket>
+  <app-header title="New ticket"></app-header>
+</ng-template>
