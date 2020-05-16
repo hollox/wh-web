@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HttpClientModule } from "@angular/common/http";
 import { MaterialModule } from "../material/material.module";
-import { AppHeaderComponent } from './app-header/app-header.component';
+import { HeaderComponent } from './header/header.component';
 import { PageWelcomeComponent } from '../pages/welcome/page-welcome.component';
 import { PageTicketListComponent } from '../pages/tickets/list/page-ticket-list.component';
 import { PageTicketDetailComponent } from '../pages/tickets/detail/page-ticket-detail.component';
@@ -21,7 +21,7 @@ import { PageUserDetailComponent } from '../pages/users/detail/page-user-detail.
   declarations: [
     AppComponent,
     NavBarComponent,
-    AppHeaderComponent,
+    HeaderComponent,
     PageWelcomeComponent,
     PageTicketListComponent,
     PageTicketDetailComponent,
