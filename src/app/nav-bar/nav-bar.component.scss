@@ -1,0 +1,11 @@
+header {
+  padding: 10px;
+  background: lightblue;
+
+  .navigation {
+    li {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

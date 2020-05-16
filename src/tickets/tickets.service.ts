@@ -14,7 +14,6 @@ export class TicketsService {
   }
 
   getTickets$(token: string): Observable<Ticket[]> {
-    console.log({token});
     return this.http.get<TicketJson[]>(`${environment.ticketsBaseUrl}v1/tickets`, {
       headers: {
         "Authorization": `Bearer ${token}`

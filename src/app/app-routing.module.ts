@@ -1,13 +1,29 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {ProfileComponent} from "./profile/profile.component";
+import {RouterModule, Route} from '@angular/router';
+import {PageProfileComponent} from "./page-profile/page-profile.component";
 import {AuthGuard} from "./auth/auth.guard";
+import {PageWelcomeComponent} from "./page-welcome/page-welcome.component";
+import {PageTicketListComponent} from "./page-ticket-list/page-ticket-list.component";
+import {PageTicketDetailComponent} from "./page-ticket-detail/page-ticket-detail.component";
 
-
-const routes: Routes = [
+const routes: Route[] = [
+  {
+    path: '',
+    component: PageWelcomeComponent,
+  },
   {
     path: 'profile',
-    component: ProfileComponent,
+    component: PageProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'tickets',
+    component: PageTicketListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'ticket',
+    component: PageTicketDetailComponent,
     canActivate: [AuthGuard]
   }
 ];
