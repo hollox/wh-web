@@ -10,10 +10,12 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { HttpClientModule } from "@angular/common/http";
 import { MaterialModule } from "../material/material.module";
 import { AppHeaderComponent } from './app-header/app-header.component';
-import { PageWelcomeComponent } from './page-welcome/page-welcome.component';
-import { PageTicketListComponent } from './page-ticket-list/page-ticket-list.component';
-import { PageTicketDetailComponent } from './page-ticket-detail/page-ticket-detail.component';
-import { PageProfileComponent } from './page-profile/page-profile.component';
+import { PageWelcomeComponent } from '../pages/page-welcome/page-welcome.component';
+import { PageTicketListComponent } from '../pages/page-ticket-list/page-ticket-list.component';
+import { PageTicketDetailComponent } from '../pages/page-ticket-detail/page-ticket-detail.component';
+import { PageProfileComponent } from '../pages/page-profile/page-profile.component';
+import { PageUserListComponent } from '../pages/page-user-list/page-user-list.component';
+import { PageUserDetailComponent } from '../pages/page-user-detail/page-user-detail.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { PageProfileComponent } from './page-profile/page-profile.component';
     PageWelcomeComponent,
     PageTicketListComponent,
     PageTicketDetailComponent,
-    PageProfileComponent
+    PageProfileComponent,
+    PageUserListComponent,
+    PageUserDetailComponent
   ],
   imports: [
     BrowserModule,
