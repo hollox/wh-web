@@ -3,6 +3,7 @@ import {mergeMap} from "rxjs/operators";
 import {Ticket} from "../../tickets/tickets.models";
 import {AuthService} from "../../authentication/auth.service";
 import {TicketsService} from "../../tickets/tickets.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'page-ticket-list',
@@ -13,7 +14,7 @@ export class PageTicketListComponent implements OnInit {
 
   public tickets: Ticket[] = [];
 
-  constructor(public authService: AuthService, public ticketsService: TicketsService) { }
+  constructor(public authService: AuthService, public ticketsService: TicketsService, private router: Router) { }
 
   ngOnInit(): void {
     this.authService.getToken$().pipe(
@@ -25,6 +26,6 @@ export class PageTicketListComponent implements OnInit {
   }
 
   onRowClick(ticketId: string): void {
-    console.log(`onRowClick ${ticketId}`)
+    this.router.navigate(['/ticket', ticketId]);
   }
 }

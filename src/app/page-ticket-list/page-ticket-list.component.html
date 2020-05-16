@@ -3,7 +3,7 @@
   <div class="col">ticketId</div>
   <div class="col">description</div>
 </div>
-<div class="row" *ngFor="let ticket of tickets" (click)="onRowClick(ticket.ticketId)">
+<div class="row clickable" *ngFor="let ticket of tickets" (click)="onRowClick(ticket.ticketId)">
   <div class="col">{{ticket.ticketId}}</div>
   <div class="col">{{ticket.description}}</div>
 </div>
