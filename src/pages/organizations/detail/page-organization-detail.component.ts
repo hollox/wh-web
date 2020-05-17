@@ -22,6 +22,10 @@ export class PageOrganizationDetailComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (this.organizationFormGroup.invalid) {
+      return;
+    }
+
     console.log(this.organizationFormGroup);
     // this.organizationFormGroup.reset();
   }
