@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {mergeMap} from "rxjs/operators";
-import {Ticket} from "../../../tickets/tickets.models";
-import {AuthService} from "../../../authentication/auth.service";
-import {TicketsService} from "../../../tickets/tickets.service";
+import {Ticket} from "../../../shared/tickets/tickets.models";
+import {AuthService} from "../../../shared/authentication/auth.service";
+import {TicketsService} from "../../../shared/tickets/tickets.service";
 import { Router } from '@angular/router';
 
 @Component({

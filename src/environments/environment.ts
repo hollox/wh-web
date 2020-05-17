@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  ticketsBaseUrl: "http://localhost:4300/"
+  ticketsApiBaseUrl: "http://localhost:4300/"
 };
 
 /*
