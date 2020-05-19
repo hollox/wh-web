@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {OrganizationsService} from "../../../shared/organizations/organizations.service";
-import {FormGroup} from "@angular/forms";
-import {filter, first, mergeMap} from "rxjs/operators";
+import {filter, mergeMap} from "rxjs/operators";
 import {Organization} from "../../../shared/organizations/organizations.models";
 import {
   convertFormGroupToModel,

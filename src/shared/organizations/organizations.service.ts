@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { Organization, OrganizationJson } from "./organizations.models";
 import { environment } from '../../environments/environment';
-import {map, mergeMap, tap} from "rxjs/operators";
+import {map, mergeMap} from "rxjs/operators";
 import {convertJsonToModels, convertJsonToModel, convertModelToJson} from "./organizations.helper";
 import {AuthService} from "../authentication/auth.service";
 

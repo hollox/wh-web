@@ -4,7 +4,9 @@ export interface Organization {
   name: string;
 }
 
-export interface OrganizationJson {
+export interface OrganizationJson
+
+{
   organization_id: string;
   name: string;
 }

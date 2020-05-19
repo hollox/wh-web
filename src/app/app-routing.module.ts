@@ -78,7 +78,7 @@ const routes: Route[] = [
     canActivate: [AuthGuard]
   },
   {
-    path: 'organization/:userId',
+    path: 'organization/:organizationId',
     component: PageOrganizationDetailComponent,
     canActivate: [AuthGuard]
   },
