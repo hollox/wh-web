@@ -19,28 +19,24 @@ export function convertModelToJson(organization: Organization): OrganizationJson
   }
 }
 
-export function convertModelToFormGroup(organization?: Organization): FormGroup {
-  if (organization) {
-    return new FormGroup({
-      id: new FormControl(organization.organizationId),
-      name: new FormControl(organization.name, [Validators.required]),
-    });
-  }
-  else {
-    return emptyFormGroup();
-  }
-}
-
-export function emptyFormGroup() {
+export function convertModelToFormGroup(organization: Organization): FormGroup {
   return new FormGroup({
-    id: new FormControl(""),
-    name: new FormControl("", [Validators.required]),
+    organization_id: new FormControl(organization.organizationId),
+    name: new FormControl(organization.name, [Validators.required]),
   });
 }
 
 export function convertFormGroupToModel(formGroup: FormGroup): Organization {
   return {
-    organizationId: formGroup.get("id").value,
+    organizationId: formGroup.get("organization_id").value,
     name: formGroup.get("name").value
+  }
+}
+
+export function newOrganization(organization?: Partial<Organization>): Organization {
+  return {
+    organizationId: "",
+    name: "",
+    ...organization
   }
 }

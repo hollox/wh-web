@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from "@angular/router";
 import {OrganizationsService} from "../../../shared/organizations/organizations.service";
-import {filter, mergeMap} from "rxjs/operators";
+import {mergeMap} from "rxjs/operators";
 import {Organization} from "../../../shared/organizations/organizations.models";
-import {
-  convertFormGroupToModel,
-  convertModelToFormGroup,
-  emptyFormGroup
-} from "../../../shared/organizations/organizations.helper";
-import {Subscription, EMPTY} from "rxjs";
+import * as organizationsHelper from "../../../shared/organizations/organizations.helper";
+import {of, Subscription} from "rxjs";
+import * as usersHelper from "../../../shared/users/users.helper";
+import {FormGroup} from "@angular/forms";
+import {UsersService} from "../../../shared/users/users.service";
+import {User} from "../../../shared/users/users.models";
 
 @Component({
   selector: 'app-page-organization-detail',
@@ -17,35 +17,51 @@ import {Subscription, EMPTY} from "rxjs";
 })
 export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
-  organizationFormGroup = emptyFormGroup();
-  getByIdSub = Subscription.EMPTY;
+  organizationFormGroup: FormGroup;
+  userFormGroup: FormGroup;
+  getOrganizationByIdSub = Subscription.EMPTY;
 
-  constructor(public route: ActivatedRoute, public organizationService: OrganizationsService) { }
+  constructor(public route: ActivatedRoute, public organizationService: OrganizationsService, public usersService: UsersService) { }
 
   ngOnInit(): void {
-    this.getByIdSub = this.route.params.pipe(
-      filter((params: Params) => !!params["organizationId"]),
+    this.getOrganizationByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
-        return this.organizationService.getOrganizationById$(params["organizationId"]);
+        if (params["organizationId"]) {
+          return this.organizationService.getOrganizationById$(params["organizationId"]);
+        } else {
+          return of(organizationsHelper.newOrganization());
+        }
       }
     )).subscribe((organization: Organization) => {
-      console.log({organization});
-      this.organizationFormGroup = convertModelToFormGroup(organization);
+      this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
+      const user = usersHelper.newUser({ organizationId: organization.organizationId});
+      this.userFormGroup = usersHelper.convertModelToFormGroup(user);
     });
   }
 
   ngOnDestroy() {
-    this.getByIdSub.unsubscribe();
+    this.getOrganizationByIdSub.unsubscribe();
   }
 
-  onSubmit(): void {
+  onOrganizationSubmit(): void {
     if (this.organizationFormGroup.invalid) {
       return;
     }
 
-    const organization = convertFormGroupToModel(this.organizationFormGroup);
-    this.organizationService.saveOrganization$(organization).subscribe((organization: Organization) => {
-      this.organizationFormGroup = convertModelToFormGroup(organization);
+    const organization = organizationsHelper.convertFormGroupToModel(this.organizationFormGroup);
+    this.organizationService.save$(organization).subscribe((organization: Organization) => {
+      this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
+    })
+  }
+
+  onUserSubmit(): void {
+    if (this.userFormGroup.invalid) {
+      return;
+    }
+
+    const user = usersHelper.convertFormGroupToModel(this.userFormGroup);
+    this.usersService.save$(user).subscribe((user: User) => {
+      this.userFormGroup = usersHelper.convertModelToFormGroup(user);
     })
   }
 }

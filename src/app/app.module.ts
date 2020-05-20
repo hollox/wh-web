@@ -20,6 +20,8 @@ import { PageReminderListComponent } from '../pages/reminders/list/page-reminder
 import { PageReminderDetailComponent } from '../pages/reminders/detail/page-reminder-detail.component';
 import { PageOrganizationDetailComponent } from '../pages/organizations/detail/page-organization-detail.component';
 import { PageOrganizationListComponent } from '../pages/organizations/list/page-organization-list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { PageOrganizationListComponent } from '../pages/organizations/list/page-
     PageOrganizationDetailComponent,
     PageOrganizationListComponent,
     PageOrganizationListComponent,
-    PageOrganizationDetailComponent
+    PageOrganizationDetailComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { PageOrganizationListComponent } from '../pages/organizations/list/page-
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     HttpClientModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

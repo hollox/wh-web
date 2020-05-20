@@ -8,15 +8,47 @@
   <header title="New organization"></header>
 </ng-template>
 
-<form [formGroup]="organizationFormGroup" (ngSubmit)="onSubmit()">
+<ng-container *ngIf="organizationFormGroup; then organizationLoaded else organizationLoading"></ng-container>
+
+<ng-template #organizationLoaded>
+<form [formGroup]="organizationFormGroup" (ngSubmit)="onOrganizationSubmit()">
   <div class="form-group">
-    <label for="id">Id</label>
-    <input type="text" class="form-control" id="id"  formControlName="id" readonly="readonly">
+    <label for="organization_id">Organization id</label>
+    <input type="text" class="form-control" id="organization_id"  formControlName="organization_id" readonly="readonly">
   </div>
   <div class="form-group">
-    <label for="name">Name</label>
-    <input type="text" class="form-control" id="name" formControlName="name">
+    <label for="organization_name">Name</label>
+    <input type="text" class="form-control" id="organization_name" formControlName="name">
     <div class="alert alert-danger" *ngIf="organizationFormGroup.get('name').touched && organizationFormGroup.get('name')?.errors?.required">Name is required.</div>
   </div>
-  <button class="btn btn-primary" type="submit" [disabled]="organizationFormGroup.invalid">Save</button>
+  <button class="btn btn-primary" type="submit" [disabled]="organizationFormGroup.invalid">save organization</button>
 </form>
+
+<header title="Users"></header>
+
+<form [formGroup]="userFormGroup" (ngSubmit)="onUserSubmit()">
+  <div class="form-group">
+    <label for="user_id">User id</label>
+    <input type="text" class="form-control" id="user_id"  formControlName="user_id" readonly="readonly">
+    <input type="hidden" class="form-control" id="user_organization_id"  formControlName="user_organization_id" readonly="readonly">
+  </div>
+  <div class="form-group">
+    <label for="user_email">Email</label>
+    <input type="text" class="form-control" id="user_email" formControlName="email">
+    <div class="alert alert-danger" *ngIf="userFormGroup.get('email').touched && userFormGroup.get('email')?.errors?.required">Email is required.</div>
+  </div>
+  <div class="form-group">
+    <label for="user_firstname">Firstname</label>
+    <input type="text" class="form-control" id="user_firstname" formControlName="firstname">
+  </div>
+  <div class="form-group">
+    <label for="user_lastname">Lastname</label>
+    <input type="text" class="form-control" id="user_lastname" formControlName="lastname">
+  </div>
+  <button class="btn btn-primary" type="submit" [disabled]="userFormGroup.invalid">save user</button>
+</form>
+</ng-template>
+
+<ng-template #organizationLoading>
+  <spinner></spinner>
+</ng-template>
