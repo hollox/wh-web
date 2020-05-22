@@ -21,21 +21,32 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
   userFormGroup: FormGroup;
   getOrganizationByIdSub = Subscription.EMPTY;
 
+  users: User[];
+  dataLoaded: boolean;
+
   constructor(public route: ActivatedRoute, public organizationService: OrganizationsService, public usersService: UsersService) { }
 
   ngOnInit(): void {
+    this.dataLoaded = false;
     this.getOrganizationByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
         if (params["organizationId"]) {
-          return this.organizationService.getOrganizationById$(params["organizationId"]);
+          return this.organizationService.getById$(params["organizationId"]);
         } else {
           return of(organizationsHelper.newOrganization());
         }
       }
     )).subscribe((organization: Organization) => {
       this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
-      const user = usersHelper.newUser({ organizationId: organization.organizationId});
+      this.users = organization.users || [];
+
+      const user = usersHelper.newUser();
+
+      console.log({user});
       this.userFormGroup = usersHelper.convertModelToFormGroup(user);
+
+      console.log({userFormGroup: this.userFormGroup, users: this.users.length});
+      this.dataLoaded = true;
     });
   }
 
@@ -61,7 +72,13 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
     const user = usersHelper.convertFormGroupToModel(this.userFormGroup);
     this.usersService.save$(user).subscribe((user: User) => {
+      this.users = this.users.filter(u => u.userId !== user.userId);
+      this.users.push(user);
       this.userFormGroup = usersHelper.convertModelToFormGroup(user);
     })
+  }
+
+  onRowClick(user: User): void {
+    this.userFormGroup = usersHelper.convertModelToFormGroup(user);
   }
 }

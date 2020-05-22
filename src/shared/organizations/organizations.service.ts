@@ -25,7 +25,7 @@ export class OrganizationsService {
       }));
   }
 
-  getOrganizationById$(organizationId: string): Observable<Organization> {
+  getById$(organizationId: string): Observable<Organization> {
     return this.authService.getToken$().pipe(
       mergeMap((token: string) => {
         return this.http.get<OrganizationJson>(`${environment.ticketsApiBaseUrl}v1/organizations/${organizationId}`, {
