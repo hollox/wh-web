@@ -7,6 +7,13 @@ import { AuthService } from '../../shared/authentication/auth.service';
   styleUrls: ['./nav-bar.component.scss']
 })
 export class NavBarComponent  {
+
+  public isCollapsed = true;
+
   constructor(public authService: AuthService) {
+  }
+
+  toggle() {
+    this.isCollapsed = !this.isCollapsed;
   }
 }

@@ -1,12 +1,40 @@
+
+<!--<nav class="navbar navbar-default">-->
+<!--  <div class="container-fluid">-->
+<!--    <div class="navbar-header">-->
+<!--      <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed" aria-expanded="false">-->
+<!--        <span class="sr-only">Toggle navigation</span>-->
+<!--        <span class="icon-bar"></span>-->
+<!--        <span class="icon-bar"></span>-->
+<!--        <span class="icon-bar"></span>-->
+<!--      </button>-->
+<!--      <a class="navbar-brand" href="#">Brand</a>-->
+<!--    </div>-->
+<!--    <div class="collapse navbar-collapse" [collapse]="isCollapsed">-->
+<!--      <ul class="nav navbar-nav">-->
+<!--        <li class="active"><a href="#">Link</a></li>-->
+<!--        <li><a href="#">Link</a></li>-->
+<!--      </ul>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</nav>-->
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler d-lg-none" type="button" (click)="toggle()" [attr.aria-expanded]="!isCollapsed" aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <div class="collapse navbar-collapse" id="navbarSupportedContent" [collapse]="isCollapsed">
     <a class="navbar-brand" href="#">World Hoster</a>
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active" *ngIf="authService.loggedIn">
         <a class="nav-link" routerLink="/tickets">Tickets</a>
+      </li>
+      <li class="nav-item active" *ngIf="authService.loggedIn">
+        <a class="nav-link" routerLink="/reminders">Reminders</a>
+      </li>
+      <li class="nav-item active" *ngIf="authService.loggedIn">
+        <a class="nav-link" routerLink="/users">Users</a>
       </li>
       <li class="nav-item active" *ngIf="authService.loggedIn">
         <a class="nav-link" routerLink="/organizations">Organizations</a>
@@ -19,3 +47,4 @@
     <button class="btn btn-outline-secondary" (click)="authService.logout()" *ngIf="authService.loggedIn">Log Out</button>
   </div>
 </nav>
+
