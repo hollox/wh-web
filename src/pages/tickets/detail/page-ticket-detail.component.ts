@@ -49,6 +49,7 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
       this.ticketFormGroup.setValue(ticket);
       this.dataLoaded = true;
       if (ticket.ticketId) {
+        this.messageFormGroup.patchValue({ ticketId: ticket.ticketId })
         this.messageFormGroup.enable();
       }
     });

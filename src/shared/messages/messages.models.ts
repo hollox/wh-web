@@ -11,5 +11,5 @@ export interface MessageJson {
   ticket_id: string;
   author_user_id: string;
   content: string;
-  create_date: string;
+  create_date?: string;
 }

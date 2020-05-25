@@ -22,8 +22,6 @@
       <input type="text" class="form-control" id="user_firstname" formControlName="content">
       <div class="alert alert-danger" *ngIf="ticketFormGroup.get('content').touched && ticketFormGroup.get('content')?.errors?.required">Content is required.</div>
     </div>
-    <div>invalid: {{ticketFormGroup.invalid}}</div>
-    <div>pristine: {{ticketFormGroup.pristine}}</div>
     <button class="btn btn-primary" type="submit" [disabled]="ticketFormGroup.invalid || ticketFormGroup.pristine">save ticket</button>
   </form>
 
@@ -38,8 +36,6 @@
       <input type="text" class="form-control" id="message_content" formControlName="content">
       <div class="alert alert-danger" *ngIf="messageFormGroup.get('content').touched && messageFormGroup.get('content')?.errors?.required">Content is required.</div>
     </div>
-    <div>invalid: {{messageFormGroup.invalid}}</div>
-    <div>pristine: {{messageFormGroup.pristine}}</div>
     <button class="btn btn-primary" type="submit" [disabled]="messageFormGroup.invalid || messageFormGroup.pristine">Save message</button>
   </form>
 </ng-template>

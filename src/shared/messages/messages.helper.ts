@@ -24,8 +24,7 @@ export function convertModelToJson(message: Message): MessageJson {
     message_id: message.messageId,
     ticket_id: message.ticketId,
     author_user_id: message.authorUserId,
-    content: message.content,
-    create_date: message.createDate.toISOString()
+    content: message.content
   }
 }
 
