@@ -57,6 +57,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     const organization = this.organizationFormGroup.getRawValue();
     this.organizationService.save$(organization).subscribe((organization: Organization) => {
       this.organizationFormGroup.setValue(organization);
+      console.log({org: this.organizationFormGroup.get('organizationId').value});
       this.userFormGroup.patchValue({ organization_id: organization.organizationId })
     })
   }
