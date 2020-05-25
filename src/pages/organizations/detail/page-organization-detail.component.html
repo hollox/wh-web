@@ -28,7 +28,7 @@
     <div class="col">Firstname</div>
     <div class="col">Lastname</div>
   </div>
-  <div class="row clickable" *ngFor="let user of users" (click)="onRowClick(user)">
+  <div class="row clickable" *ngFor="let user of organizationFormGroup.get('users').value" (click)="onRowClick(user)">
     <div class="col">{{user.email}}</div>
     <div class="col">{{user.firstname}}</div>
     <div class="col">{{user.lastname}}</div>

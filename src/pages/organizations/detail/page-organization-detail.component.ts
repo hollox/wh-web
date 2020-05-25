@@ -21,7 +21,6 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
   userFormGroup: FormGroup;
   getOrganizationByIdSub = Subscription.EMPTY;
 
-  users: User[];
   dataLoaded: boolean;
 
   constructor(public route: ActivatedRoute, public organizationService: OrganizationsService, public usersService: UsersService) { }
@@ -42,8 +41,6 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
       }
     )).subscribe((organization: Organization) => {
       this.organizationFormGroup.setValue(organization);
-      this.users = organization.users || [];
-
       this.dataLoaded = true;
     });
   }
@@ -71,7 +68,9 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
     const user = this.userFormGroup.getRawValue();
     this.usersService.save$(user).subscribe((user: User) => {
-      this.users = this.replaceUser(user, this.users);
+      const users = this.organizationFormGroup.get("users").value;
+      const newUsers = this.replaceUser(user, users);
+      this.organizationFormGroup.patchValue({ users: newUsers });
       this.userFormGroup.setValue(user);
     })
   }
