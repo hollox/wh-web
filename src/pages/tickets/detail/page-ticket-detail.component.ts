@@ -31,26 +31,30 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
 
     this.ticketFormGroup = ticketsHelper.newFormGroup();
     this.messageFormGroup = messagesHelper.newFormGroup();
+    this.messageFormGroup.disable();
 
     this.getTicketByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
           if (params["ticketId"]) {
-            console.log("100");
             return this.ticketsService.getById$(params["ticketId"]);
           } else {
             return this.usersService.whoAmI().pipe(
               map(user => {
-                console.log("200", user);
                 return ticketsHelper.newTicket({authorUserId: user.userId});
               })
             )
           }
         }
       )).subscribe((ticket: Ticket) => {
-        console.log({ticket});
       this.ticketFormGroup.setValue(ticket);
       this.dataLoaded = true;
+      if (ticket.ticketId) {
+        this.messageFormGroup.enable();
+      }
     });
+    this.usersService.whoAmI().subscribe(user => {
+      this.messageFormGroup.patchValue({authorUserId: user.userId});
+    })
   }
 
   ngOnDestroy() {
@@ -65,6 +69,8 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
     const ticket = this.ticketFormGroup.getRawValue();
     this.ticketsService.save$(ticket).subscribe((ticket: Ticket) => {
       this.ticketFormGroup.setValue(ticket);
+      this.messageFormGroup.patchValue({ ticketId: ticket.ticketId })
+      this.messageFormGroup.enable();
     })
   }
 

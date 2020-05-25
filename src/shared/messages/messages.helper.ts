@@ -15,6 +15,10 @@ export function convertJsonToModel(message: MessageJson): Message {
   }
 }
 
+export function convertModelsToJson(messages: Message[]): MessageJson[] {
+  return messages.map(convertModelToJson);
+}
+
 export function convertModelToJson(message: Message): MessageJson {
   return {
     message_id: message.messageId,
@@ -28,8 +32,8 @@ export function convertModelToJson(message: Message): MessageJson {
 export function newFormGroup(): FormGroup {
   return new FormGroup({
     messageId: new FormControl(null),
-    ticketId: new FormControl(null),
-    author_user_id: new FormControl(null, [Validators.required]),
+    ticketId: new FormControl(null, [Validators.required]),
+    authorUserId: new FormControl(null, [Validators.required]),
     content: new FormControl(null, [Validators.required])
   });
 }

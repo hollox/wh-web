@@ -35,9 +35,11 @@
   <form [formGroup]="messageFormGroup" (ngSubmit)="onMessageSubmit()">
     <div class="form-group">
       <label for="message_content">Content</label>
-      <input type="text" class="form-control" id="message_content" formControlName="email">
+      <input type="text" class="form-control" id="message_content" formControlName="content">
       <div class="alert alert-danger" *ngIf="messageFormGroup.get('content').touched && messageFormGroup.get('content')?.errors?.required">Content is required.</div>
     </div>
+    <div>invalid: {{messageFormGroup.invalid}}</div>
+    <div>pristine: {{messageFormGroup.pristine}}</div>
     <button class="btn btn-primary" type="submit" [disabled]="messageFormGroup.invalid || messageFormGroup.pristine">Save message</button>
   </form>
 </ng-template>

@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 import { User, UserJson } from "./users.models";
 import { environment } from '../../environments/environment';
-import {map, mergeMap} from "rxjs/operators";
+import {map, mergeMap, shareReplay} from "rxjs/operators";
 import {convertJsonToModel, convertModelToJson} from "./users.helper";
 import {AuthService} from "../authentication/auth.service";
 
@@ -22,7 +22,8 @@ export class UsersService {
               "Authorization": `Bearer ${token}`
             }
           }).pipe(
-          map(convertJsonToModel))
+          map(convertJsonToModel),
+          shareReplay(1))
       }));
   }
 
