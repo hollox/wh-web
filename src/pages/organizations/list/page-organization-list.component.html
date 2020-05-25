@@ -1,11 +1,9 @@
 <header title="Organizations"></header>
 <button class="btn btn-primary" (click)="onCreateClick()">Create</button>
 <div class="row">
-  <div class="col">Organization Id</div>
   <div class="col">Name</div>
 </div>
 <div class="row clickable" *ngFor="let organization of organizations" (click)="onRowClick(organization.organizationId)">
-  <div class="col">{{organization.organizationId}}</div>
   <div class="col">{{organization.name}}</div>
 </div>
 

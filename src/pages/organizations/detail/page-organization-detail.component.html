@@ -13,10 +13,6 @@
 <ng-template #dataLoadedTp>
   <form [formGroup]="organizationFormGroup" (ngSubmit)="onOrganizationSubmit()">
     <div class="form-group">
-      <label for="organization_id">Organization id</label>
-      <input type="text" class="form-control" id="organization_id"  formControlName="organization_id" readonly="readonly">
-    </div>
-    <div class="form-group">
       <label for="organization_name">Name</label>
       <input type="text" class="form-control" id="organization_name" formControlName="name">
       <div class="alert alert-danger" *ngIf="organizationFormGroup.get('name').touched && organizationFormGroup.get('name')?.errors?.required">Name is required.</div>
@@ -26,23 +22,17 @@
 
   <header title="Users"></header>
   <div class="row">
-    <div class="col">User Id</div>
     <div class="col">Email</div>
     <div class="col">Firstname</div>
     <div class="col">Lastname</div>
   </div>
   <div class="row clickable" *ngFor="let user of users" (click)="onRowClick(user)">
-    <div class="col">{{user.userId}}</div>
     <div class="col">{{user.email}}</div>
     <div class="col">{{user.firstname}}</div>
     <div class="col">{{user.lastname}}</div>
   </div>
 
   <form [formGroup]="userFormGroup" (ngSubmit)="onUserSubmit()">
-    <div class="form-group">
-      <label for="user_id">User id</label>
-      <input type="text" class="form-control" id="user_id"  formControlName="user_id" readonly="readonly">
-    </div>
     <div class="form-group">
       <label for="user_email">Email</label>
       <input type="text" class="form-control" id="user_email" formControlName="email">
