@@ -1,6 +1,5 @@
 import { Ticket, TicketJson } from "./tickets.models";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Organization} from "../organizations/organizations.models";
 
 export function convertJsonToModels(tickets: TicketJson[]): Ticket[] {
   return tickets.map(convertJsonToModel);

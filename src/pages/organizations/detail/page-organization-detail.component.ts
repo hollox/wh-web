@@ -82,7 +82,6 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
   }
 
   onRowClick(user: User): void {
-    console.log({user});
     this.userFormGroup.setValue(user);
     this.userFormGroup.enable();
   }

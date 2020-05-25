@@ -6,7 +6,10 @@ import {UsersService} from "../../../shared/users/users.service";
 import {Ticket} from "../../../shared/tickets/tickets.models";
 import * as ticketsHelper from "../../../shared/tickets/tickets.helper";
 import {map, mergeMap} from "rxjs/operators";
-import {of, Subscription} from "rxjs";
+import {Subscription} from "rxjs";
+import * as messagesHelper from "../../../shared/messages/messages.helper";
+import {Message} from "../../../shared/messages/messages.models";
+import {MessagesService} from "../../../shared/messages/messages.service";
 
 @Component({
   selector: 'page-ticket-detail',
@@ -16,16 +19,18 @@ import {of, Subscription} from "rxjs";
 export class PageTicketDetailComponent implements OnInit, OnDestroy {
 
   ticketFormGroup: FormGroup;
+  messageFormGroup: FormGroup;
   getTicketByIdSub = Subscription.EMPTY;
 
   dataLoaded: boolean;
 
-  constructor(public route: ActivatedRoute, public ticketsService: TicketsService, public usersService: UsersService) { }
+  constructor(public route: ActivatedRoute, public ticketsService: TicketsService, public usersService: UsersService, public messagesService: MessagesService) { }
 
   ngOnInit(): void {
     this.dataLoaded = false;
 
     this.ticketFormGroup = ticketsHelper.newFormGroup();
+    this.messageFormGroup = messagesHelper.newFormGroup();
 
     this.getTicketByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
@@ -61,5 +66,24 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
     this.ticketsService.save$(ticket).subscribe((ticket: Ticket) => {
       this.ticketFormGroup.setValue(ticket);
     })
+  }
+
+  onMessageSubmit(): void {
+    if (this.messageFormGroup.invalid) {
+      return;
+    }
+
+    const message = this.messageFormGroup.getRawValue();
+    this.messagesService.save$(message).subscribe((message: Message) => {
+      const messages = this.ticketFormGroup.get("messages").value;
+      const newMessages = this.replaceMessage(message, messages);
+      this.ticketFormGroup.patchValue({ messages: newMessages })
+      this.messageFormGroup.setValue(message);
+    })
+  }
+
+  replaceMessage(message: Message, messages: Message[]): Message[] {
+    const filteredMessages = messages.filter(m => m.messageId !== message.messageId);
+    return [...filteredMessages, message];
   }
 }
