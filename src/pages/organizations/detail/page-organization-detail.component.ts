@@ -40,12 +40,9 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
       this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
       this.users = organization.users || [];
 
-      const user = usersHelper.newUser();
-
-      console.log({user});
+      const user = usersHelper.newUser({organizationId: organization.organizationId});
       this.userFormGroup = usersHelper.convertModelToFormGroup(user);
 
-      console.log({userFormGroup: this.userFormGroup, users: this.users.length});
       this.dataLoaded = true;
     });
   }
@@ -62,6 +59,8 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     const organization = organizationsHelper.convertFormGroupToModel(this.organizationFormGroup);
     this.organizationService.save$(organization).subscribe((organization: Organization) => {
       this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
+      this.userFormGroup.patchValue({ organization_id: organization.organizationId })
+      console.log({getRawValue: this.userFormGroup.getRawValue()});
     })
   }
 

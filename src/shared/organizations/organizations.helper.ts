@@ -10,7 +10,7 @@ export function convertJsonToModel(organization: OrganizationJson): Organization
   return {
     organizationId: organization.organization_id,
     name: organization.name,
-    users: organization.users && organization.users.map(usersHelper.convertJsonToModel)
+    users: organization.users && usersHelper.convertJsonToModels(organization.users)
   }
 }
 
