@@ -25,24 +25,14 @@ export function convertModelToJson(user: User): UserJson {
   }
 }
 
-export function convertModelToFormGroup(user: User): FormGroup {
+export function newFormGroup(): FormGroup {
     return new FormGroup({
-      user_id: new FormControl(user.userId),
-      organization_id: new FormControl(user.organizationId, [Validators.required]),
-      email: new FormControl(user.email, [Validators.required]),
-      firstname: new FormControl(user.firstname),
-      lastname: new FormControl(user.lastname),
+      userId: new FormControl(null),
+      organizationId: new FormControl(null, [Validators.required]),
+      email: new FormControl(null, [Validators.required]),
+      firstname: new FormControl(null),
+      lastname: new FormControl(null),
     });
-}
-
-export function convertFormGroupToModel(formGroup: FormGroup): User {
-  return {
-    userId: formGroup.get("user_id").value,
-    organizationId: formGroup.get("organization_id").value,
-    email: formGroup.get("email").value,
-    firstname: formGroup.get("firstname").value,
-    lastname: formGroup.get("lastname").value
-  }
 }
 
 export function newUser(user?: Partial<User>): User {

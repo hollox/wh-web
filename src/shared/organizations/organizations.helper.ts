@@ -21,18 +21,12 @@ export function convertModelToJson(organization: Organization): OrganizationJson
   }
 }
 
-export function convertModelToFormGroup(organization: Organization): FormGroup {
+export function newFormGroup(): FormGroup {
   return new FormGroup({
-    organization_id: new FormControl(organization.organizationId),
-    name: new FormControl(organization.name, [Validators.required]),
+    organizationId: new FormControl(null),
+    name: new FormControl(null, [Validators.required]),
+    users: new FormControl([]),
   });
-}
-
-export function convertFormGroupToModel(formGroup: FormGroup): Organization {
-  return {
-    organizationId: formGroup.get("organization_id").value,
-    name: formGroup.get("name").value
-  }
 }
 
 export function newOrganization(organization?: Partial<Organization>): Organization {

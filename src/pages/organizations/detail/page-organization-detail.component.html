@@ -17,7 +17,9 @@
       <input type="text" class="form-control" id="organization_name" formControlName="name">
       <div class="alert alert-danger" *ngIf="organizationFormGroup.get('name').touched && organizationFormGroup.get('name')?.errors?.required">Name is required.</div>
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="organizationFormGroup.invalid">save organization</button>
+
+    <button class="btn btn-primary" type="submit" [disabled]="organizationFormGroup.invalid || organizationFormGroup.pristine">save organization</button>
+    <button class="btn btn-secondary" type="submit" [disabled]="!organizationFormGroup.get('organizationId').value" (click)="onNewUserClick()">New user</button>
   </form>
 
   <header title="Users"></header>
@@ -46,7 +48,7 @@
       <label for="user_lastname">Lastname</label>
       <input type="text" class="form-control" id="user_lastname" formControlName="lastname">
     </div>
-    <button class="btn btn-primary" type="submit" [disabled]="userFormGroup.invalid">save user</button>
+    <button class="btn btn-primary" type="submit" [disabled]="userFormGroup.invalid || userFormGroup.pristine">save user</button>
   </form>
 </ng-template>
 

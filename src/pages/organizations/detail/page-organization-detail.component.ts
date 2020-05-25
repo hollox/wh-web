@@ -28,6 +28,10 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dataLoaded = false;
+
+    this.organizationFormGroup = organizationsHelper.newFormGroup();
+    this.userFormGroup = usersHelper.newFormGroup();
+
     this.getOrganizationByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
         if (params["organizationId"]) {
@@ -37,11 +41,8 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
         }
       }
     )).subscribe((organization: Organization) => {
-      this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
+      this.organizationFormGroup.setValue(organization);
       this.users = organization.users || [];
-
-      const user = usersHelper.newUser({organizationId: organization.organizationId});
-      this.userFormGroup = usersHelper.convertModelToFormGroup(user);
 
       this.dataLoaded = true;
     });
@@ -56,11 +57,10 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const organization = organizationsHelper.convertFormGroupToModel(this.organizationFormGroup);
+    const organization = this.organizationFormGroup.getRawValue();
     this.organizationService.save$(organization).subscribe((organization: Organization) => {
-      this.organizationFormGroup = organizationsHelper.convertModelToFormGroup(organization);
+      this.organizationFormGroup.setValue(organization);
       this.userFormGroup.patchValue({ organization_id: organization.organizationId })
-      console.log({getRawValue: this.userFormGroup.getRawValue()});
     })
   }
 
@@ -69,15 +69,27 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const user = usersHelper.convertFormGroupToModel(this.userFormGroup);
+    const user = this.userFormGroup.getRawValue();
     this.usersService.save$(user).subscribe((user: User) => {
-      this.users = this.users.filter(u => u.userId !== user.userId);
-      this.users.push(user);
-      this.userFormGroup = usersHelper.convertModelToFormGroup(user);
+      this.users = this.replaceUser(user, this.users);
+      this.userFormGroup.setValue(user);
     })
   }
 
+  replaceUser(user: User, users: User[]): User[] {
+    const filteredUsers = users.filter(u => u.userId !== user.userId);
+    return [...filteredUsers, user];
+  }
+
   onRowClick(user: User): void {
-    this.userFormGroup = usersHelper.convertModelToFormGroup(user);
+    this.userFormGroup.setValue(user);
+    // this.userFormGroup.enable();
+  }
+
+  onNewUserClick(): void {
+    const organizationId = this.organizationFormGroup.get("organization_id").value as string;
+    const user = usersHelper.newUser({organizationId});
+    this.userFormGroup.setValue(user);
+    // this.userFormGroup.enable();
   }
 }
