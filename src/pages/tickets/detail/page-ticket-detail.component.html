@@ -1,11 +1,11 @@
 <ng-container *ngIf="route.snapshot.params.ticketId; then existingTicketTp else newTicketTp"></ng-container>
 
 <ng-template #existingTicketTp>
-  <header title="Ticket {{route.snapshot.params.ticketId}}"></header>
+  <app-header title="Ticket {{route.snapshot.params.ticketId}}"></app-header>
 </ng-template>
 
 <ng-template #newTicketTp>
-  <header title="New ticket"></header>
+  <app-header title="New ticket"></app-header>
 </ng-template>
 
 <ng-container *ngIf="dataLoaded; then dataLoadedTp else dataLoadingTp"></ng-container>
@@ -25,7 +25,7 @@
     <button class="btn btn-primary" type="submit" [disabled]="ticketFormGroup.invalid || ticketFormGroup.pristine">save ticket</button>
   </form>
 
-  <header title="Messages"></header>
+  <app-header title="Messages"></app-header>
   <div class="row" *ngFor="let message of ticketFormGroup.get('messages').value">
     <div class="col">{{message.content}}</div>
   </div>
@@ -41,5 +41,5 @@
 </ng-template>
 
 <ng-template #dataLoadingTp>
-  <spinner></spinner>
+  <app-spinner></app-spinner>
 </ng-template>

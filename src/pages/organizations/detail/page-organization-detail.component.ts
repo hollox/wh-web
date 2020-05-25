@@ -56,9 +56,9 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     }
 
     const organization = this.organizationFormGroup.getRawValue();
-    this.organizationsService.save$(organization).subscribe((organization: Organization) => {
-      this.organizationFormGroup.setValue(organization);
-      this.userFormGroup.patchValue({ organizationId: organization.organizationId });
+    this.organizationsService.save$(organization).subscribe((o: Organization) => {
+      this.organizationFormGroup.setValue(o);
+      this.userFormGroup.patchValue({ organizationId: o.organizationId });
     });
   }
 
@@ -68,11 +68,11 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     }
 
     const user = this.userFormGroup.getRawValue();
-    this.usersService.save$(user).subscribe((user: User) => {
+    this.usersService.save$(user).subscribe((u: User) => {
       const users = this.organizationFormGroup.get('users').value;
-      const newUsers = this.replaceUser(user, users);
+      const newUsers = this.replaceUser(u, users);
       this.organizationFormGroup.patchValue({ users: newUsers });
-      this.userFormGroup.setValue(user);
+      this.userFormGroup.setValue(u);
     });
   }
 

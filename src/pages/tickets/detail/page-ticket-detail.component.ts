@@ -24,7 +24,11 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
 
   dataLoaded: boolean;
 
-  constructor(public route: ActivatedRoute, public ticketsService: TicketsService, public usersService: UsersService, public messagesService: MessagesService) { }
+  constructor(public route: ActivatedRoute,
+              public ticketsService: TicketsService,
+              public usersService: UsersService,
+              public messagesService: MessagesService)
+  { }
 
   ngOnInit(): void {
     this.dataLoaded = false;
@@ -68,9 +72,9 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
     }
 
     const ticket = this.ticketFormGroup.getRawValue();
-    this.ticketsService.save$(ticket).subscribe((ticket: Ticket) => {
-      this.ticketFormGroup.setValue(ticket);
-      this.messageFormGroup.patchValue({ ticketId: ticket.ticketId });
+    this.ticketsService.save$(ticket).subscribe((t: Ticket) => {
+      this.ticketFormGroup.setValue(t);
+      this.messageFormGroup.patchValue({ ticketId: t.ticketId });
       this.messageFormGroup.enable();
     });
   }
@@ -81,11 +85,12 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
     }
 
     const message = this.messageFormGroup.getRawValue();
-    this.messagesService.save$(message).subscribe((message: Message) => {
+    this.messagesService.save$(message).subscribe((m: Message) => {
       const messages = this.ticketFormGroup.get('messages').value;
-      const newMessages = this.replaceMessage(message, messages);
+      const newMessages = this.replaceMessage(m, messages);
       this.ticketFormGroup.patchValue({ messages: newMessages });
-      this.messageFormGroup.setValue(message);
+      const blankMessage = messagesHelper.newMessage({ ticketId: m.ticketId, authorUserId: m.authorUserId });
+      this.messageFormGroup.reset(blankMessage);
     });
   }
 

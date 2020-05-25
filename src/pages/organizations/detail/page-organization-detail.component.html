@@ -1,11 +1,11 @@
 <ng-container *ngIf="route.snapshot.params.organizationId; then existingOrganizationTp else newOrganizationTp"></ng-container>
 
 <ng-template #existingOrganizationTp>
-  <header title="Organization {{route.snapshot.params.organizationId}}"></header>
+  <app-header title="Organization {{route.snapshot.params.organizationId}}"></app-header>
 </ng-template>
 
 <ng-template #newOrganizationTp>
-  <header title="New organization"></header>
+  <app-header title="New organization"></app-header>
 </ng-template>
 
 <ng-container *ngIf="dataLoaded; then dataLoadedTp else dataLoadingTp"></ng-container>
@@ -22,7 +22,7 @@
     <button class="btn btn-secondary" type="submit" [disabled]="!organizationFormGroup.get('organizationId').value" (click)="onNewUserClick()">New user</button>
   </form>
 
-  <header title="Users"></header>
+  <app-header title="Users"></app-header>
   <div class="row">
     <div class="col">Email</div>
     <div class="col">Firstname</div>
@@ -53,5 +53,5 @@
 </ng-template>
 
 <ng-template #dataLoadingTp>
-  <spinner></spinner>
+  <app-spinner></app-spinner>
 </ng-template>

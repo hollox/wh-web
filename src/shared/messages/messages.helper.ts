@@ -36,3 +36,13 @@ export function newFormGroup(): FormGroup {
     content: new FormControl(null, [Validators.required])
   });
 }
+
+export function newMessage(message?: Partial<Message>): Message {
+  return {
+    messageId: '',
+    ticketId: '',
+    authorUserId: '',
+    content: '',
+    ...message
+  };
+}

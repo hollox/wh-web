@@ -3,7 +3,7 @@ export interface Message {
   ticketId: string;
   authorUserId: string;
   content: string;
-  createDate: Date;
+  createDate?: Date;
 }
 
 export interface MessageJson {
