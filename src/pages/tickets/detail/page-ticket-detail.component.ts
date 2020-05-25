@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
-import {FormGroup} from "@angular/forms";
-import {TicketsService} from "../../../shared/tickets/tickets.service";
-import {UsersService} from "../../../shared/users/users.service";
-import {Ticket} from "../../../shared/tickets/tickets.models";
-import * as ticketsHelper from "../../../shared/tickets/tickets.helper";
-import {map, mergeMap} from "rxjs/operators";
-import {Subscription} from "rxjs";
-import * as messagesHelper from "../../../shared/messages/messages.helper";
-import {Message} from "../../../shared/messages/messages.models";
-import {MessagesService} from "../../../shared/messages/messages.service";
+import {ActivatedRoute, Params} from '@angular/router';
+import {FormGroup} from '@angular/forms';
+import {TicketsService} from '../../../shared/tickets/tickets.service';
+import {UsersService} from '../../../shared/users/users.service';
+import {Ticket} from '../../../shared/tickets/tickets.models';
+import * as ticketsHelper from '../../../shared/tickets/tickets.helper';
+import {map, mergeMap} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import * as messagesHelper from '../../../shared/messages/messages.helper';
+import {Message} from '../../../shared/messages/messages.models';
+import {MessagesService} from '../../../shared/messages/messages.service';
 
 @Component({
   selector: 'page-ticket-detail',
@@ -35,27 +35,27 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
 
     this.getTicketByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
-          if (params["ticketId"]) {
-            return this.ticketsService.getById$(params["ticketId"]);
+          if (params.ticketId) {
+            return this.ticketsService.getById$(params.ticketId);
           } else {
             return this.usersService.whoAmI().pipe(
               map(user => {
                 return ticketsHelper.newTicket({authorUserId: user.userId});
               })
-            )
+            );
           }
         }
       )).subscribe((ticket: Ticket) => {
       this.ticketFormGroup.setValue(ticket);
       this.dataLoaded = true;
       if (ticket.ticketId) {
-        this.messageFormGroup.patchValue({ ticketId: ticket.ticketId })
+        this.messageFormGroup.patchValue({ ticketId: ticket.ticketId });
         this.messageFormGroup.enable();
       }
     });
     this.usersService.whoAmI().subscribe(user => {
       this.messageFormGroup.patchValue({authorUserId: user.userId});
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -70,9 +70,9 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
     const ticket = this.ticketFormGroup.getRawValue();
     this.ticketsService.save$(ticket).subscribe((ticket: Ticket) => {
       this.ticketFormGroup.setValue(ticket);
-      this.messageFormGroup.patchValue({ ticketId: ticket.ticketId })
+      this.messageFormGroup.patchValue({ ticketId: ticket.ticketId });
       this.messageFormGroup.enable();
-    })
+    });
   }
 
   onMessageSubmit(): void {
@@ -82,11 +82,11 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
 
     const message = this.messageFormGroup.getRawValue();
     this.messagesService.save$(message).subscribe((message: Message) => {
-      const messages = this.ticketFormGroup.get("messages").value;
+      const messages = this.ticketFormGroup.get('messages').value;
       const newMessages = this.replaceMessage(message, messages);
-      this.ticketFormGroup.patchValue({ messages: newMessages })
+      this.ticketFormGroup.patchValue({ messages: newMessages });
       this.messageFormGroup.setValue(message);
-    })
+    });
   }
 
   replaceMessage(message: Message, messages: Message[]): Message[] {

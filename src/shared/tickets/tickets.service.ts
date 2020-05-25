@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { Observable } from "rxjs";
-import {Ticket, TicketJson} from "./tickets.models";
-import {map, mergeMap} from "rxjs/operators";
-import {convertJsonToModels, convertJsonToModel, convertModelToJson} from "./tickets.helper";
-import {AuthService} from "../authentication/auth.service";
-import {HttpClient} from "@angular/common/http";
-import {environment} from "../../environments/environment";
+import { Observable } from 'rxjs';
+import {Ticket, TicketJson} from './tickets.models';
+import {map, mergeMap} from 'rxjs/operators';
+import {convertJsonToModels, convertJsonToModel, convertModelToJson} from './tickets.helper';
+import {AuthService} from '../authentication/auth.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class TicketsService {
     return this.authService.getToken$().pipe(
       mergeMap((token: string) => this.http.get<TicketJson[]>(`${environment.ticketsApiBaseUrl}v1/tickets`, {
         headers: {
-          "Authorization": `Bearer ${token}`
+          Authorization: `Bearer ${token}`
         }
       })),
       map(convertJsonToModels)
@@ -30,9 +30,9 @@ export class TicketsService {
       mergeMap((token: string) => {
         return this.http.get<TicketJson>(`${environment.ticketsApiBaseUrl}v1/tickets/${ticketId}`, {
           headers: {
-            "Authorization": `Bearer ${token}`
+            Authorization: `Bearer ${token}`
           }
-        }).pipe(map(convertJsonToModel))
+        }).pipe(map(convertJsonToModel));
       }));
   }
 
@@ -42,10 +42,10 @@ export class TicketsService {
         return this.http.post<TicketJson>(`${environment.ticketsApiBaseUrl}v1/tickets`,
           convertModelToJson(ticket), {
             headers: {
-              "Authorization": `Bearer ${token}`
+              Authorization: `Bearer ${token}`
             }
           }).pipe(
-          map(convertJsonToModel))
+          map(convertJsonToModel));
       }));
   }
 }

@@ -1,5 +1,5 @@
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {Message, MessageJson} from "./messages.models";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Message, MessageJson} from './messages.models';
 
 export function convertJsonToModels(messages: MessageJson[]): Message[] {
   return messages.map(convertJsonToModel);
@@ -12,7 +12,7 @@ export function convertJsonToModel(message: MessageJson): Message {
     authorUserId: message.author_user_id,
     content: message.content,
     createDate: new Date(message.create_date)
-  }
+  };
 }
 
 export function convertModelsToJson(messages: Message[]): MessageJson[] {
@@ -25,7 +25,7 @@ export function convertModelToJson(message: Message): MessageJson {
     ticket_id: message.ticketId,
     author_user_id: message.authorUserId,
     content: message.content
-  }
+  };
 }
 
 export function newFormGroup(): FormGroup {

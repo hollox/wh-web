@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
-import {OrganizationsService} from "../../../shared/organizations/organizations.service";
-import {mergeMap} from "rxjs/operators";
-import {Organization} from "../../../shared/organizations/organizations.models";
-import * as organizationsHelper from "../../../shared/organizations/organizations.helper";
-import {of, Subscription} from "rxjs";
-import * as usersHelper from "../../../shared/users/users.helper";
-import {FormGroup} from "@angular/forms";
-import {UsersService} from "../../../shared/users/users.service";
-import {User} from "../../../shared/users/users.models";
+import {ActivatedRoute, Params} from '@angular/router';
+import {OrganizationsService} from '../../../shared/organizations/organizations.service';
+import {mergeMap} from 'rxjs/operators';
+import {Organization} from '../../../shared/organizations/organizations.models';
+import * as organizationsHelper from '../../../shared/organizations/organizations.helper';
+import {of, Subscription} from 'rxjs';
+import * as usersHelper from '../../../shared/users/users.helper';
+import {FormGroup} from '@angular/forms';
+import {UsersService} from '../../../shared/users/users.service';
+import {User} from '../../../shared/users/users.models';
 
 @Component({
   selector: 'app-page-organization-detail',
@@ -34,8 +34,8 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
     this.getOrganizationByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
-        if (params["organizationId"]) {
-          return this.organizationsService.getById$(params["organizationId"]);
+        if (params.organizationId) {
+          return this.organizationsService.getById$(params.organizationId);
         } else {
           return of(organizationsHelper.newOrganization());
         }
@@ -58,8 +58,8 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     const organization = this.organizationFormGroup.getRawValue();
     this.organizationsService.save$(organization).subscribe((organization: Organization) => {
       this.organizationFormGroup.setValue(organization);
-      this.userFormGroup.patchValue({ organizationId: organization.organizationId })
-    })
+      this.userFormGroup.patchValue({ organizationId: organization.organizationId });
+    });
   }
 
   onUserSubmit(): void {
@@ -69,11 +69,11 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
     const user = this.userFormGroup.getRawValue();
     this.usersService.save$(user).subscribe((user: User) => {
-      const users = this.organizationFormGroup.get("users").value;
+      const users = this.organizationFormGroup.get('users').value;
       const newUsers = this.replaceUser(user, users);
       this.organizationFormGroup.patchValue({ users: newUsers });
       this.userFormGroup.setValue(user);
-    })
+    });
   }
 
   replaceUser(user: User, users: User[]): User[] {
@@ -87,7 +87,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
   }
 
   onNewUserClick(): void {
-    const organizationId = this.organizationFormGroup.get("organizationId").value as string;
+    const organizationId = this.organizationFormGroup.get('organizationId').value as string;
     const user = usersHelper.newUser({organizationId});
     this.userFormGroup.setValue(user);
     this.userFormGroup.enable();

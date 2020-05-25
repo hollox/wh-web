@@ -1,11 +1,11 @@
-import {Message, MessageJson} from "../messages/messages.models";
+import {Message, MessageJson} from '../messages/messages.models';
 
 export interface Ticket {
   ticketId: string;
   authorUserId: string;
   title: string;
   content: string;
-  messages: Message[]
+  messages: Message[];
 }
 
 export interface TicketJson {

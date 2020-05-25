@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import {RouterModule, Route} from '@angular/router';
-import {PageProfileComponent} from "../pages/profiles/page-profile.component";
-import {AuthGuard} from "./auth/auth.guard";
-import {PageWelcomeComponent} from "../pages/welcome/page-welcome.component";
-import {PageTicketListComponent} from "../pages/tickets/list/page-ticket-list.component";
-import {PageTicketDetailComponent} from "../pages/tickets/detail/page-ticket-detail.component";
-import {PageUserListComponent} from "../pages/users/list/page-user-list.component";
-import {PageUserDetailComponent} from "../pages/users/detail/page-user-detail.component";
-import {PageReminderDetailComponent} from "../pages/reminders/detail/page-reminder-detail.component";
-import {PageReminderListComponent} from "../pages/reminders/list/page-reminder-list.component";
-import {PageOrganizationListComponent} from "../pages/organizations/list/page-organization-list.component";
-import {PageOrganizationDetailComponent} from "../pages/organizations/detail/page-organization-detail.component";
+import {PageProfileComponent} from '../pages/profiles/page-profile.component';
+import {AuthGuard} from './auth/auth.guard';
+import {PageWelcomeComponent} from '../pages/welcome/page-welcome.component';
+import {PageTicketListComponent} from '../pages/tickets/list/page-ticket-list.component';
+import {PageTicketDetailComponent} from '../pages/tickets/detail/page-ticket-detail.component';
+import {PageUserListComponent} from '../pages/users/list/page-user-list.component';
+import {PageUserDetailComponent} from '../pages/users/detail/page-user-detail.component';
+import {PageReminderDetailComponent} from '../pages/reminders/detail/page-reminder-detail.component';
+import {PageReminderListComponent} from '../pages/reminders/list/page-reminder-list.component';
+import {PageOrganizationListComponent} from '../pages/organizations/list/page-organization-list.component';
+import {PageOrganizationDetailComponent} from '../pages/organizations/detail/page-organization-detail.component';
 
 const routes: Route[] = [
   {

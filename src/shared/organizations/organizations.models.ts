@@ -1,4 +1,4 @@
-import {User, UserJson} from "../users/users.models";
+import {User, UserJson} from '../users/users.models';
 
 export interface Organization {
   organizationId: string;

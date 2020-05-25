@@ -1,5 +1,5 @@
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {User, UserJson} from "./users.models";
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {User, UserJson} from './users.models';
 
 export function convertJsonToModels(users: UserJson[]): User[] {
   return users.map(convertJsonToModel);
@@ -12,7 +12,7 @@ export function convertJsonToModel(user: UserJson): User {
     email: user.email,
     firstname: user.firstname,
     lastname: user.lastname
-  }
+  };
 }
 
 export function convertModelToJson(user: User): UserJson {
@@ -22,7 +22,7 @@ export function convertModelToJson(user: User): UserJson {
     email: user.email,
     firstname: user.firstname,
     lastname: user.lastname
-  }
+  };
 }
 
 export function newFormGroup(): FormGroup {
@@ -37,11 +37,11 @@ export function newFormGroup(): FormGroup {
 
 export function newUser(user?: Partial<User>): User {
   return {
-    userId: "",
-    organizationId: "",
-    email: "",
-    firstname: "",
-    lastname: "",
+    userId: '',
+    organizationId: '',
+    email: '',
+    firstname: '',
+    lastname: '',
     ...user
-  }
+  };
 }

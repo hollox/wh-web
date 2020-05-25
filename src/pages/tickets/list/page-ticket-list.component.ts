@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Ticket} from "../../../shared/tickets/tickets.models";
-import {TicketsService} from "../../../shared/tickets/tickets.service";
+import {Ticket} from '../../../shared/tickets/tickets.models';
+import {TicketsService} from '../../../shared/tickets/tickets.service';
 import { Router } from '@angular/router';
 
 @Component({

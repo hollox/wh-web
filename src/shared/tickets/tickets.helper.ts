@@ -1,6 +1,6 @@
-import { Ticket, TicketJson } from "./tickets.models";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
-import * as messagesHelper from "../messages/messages.helper";
+import { Ticket, TicketJson } from './tickets.models';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import * as messagesHelper from '../messages/messages.helper';
 
 export function convertJsonToModels(tickets: TicketJson[]): Ticket[] {
   return tickets.map(convertJsonToModel);
@@ -13,7 +13,7 @@ export function convertJsonToModel(ticket: TicketJson): Ticket {
     title: ticket.title,
     content: ticket.content,
     messages: messagesHelper.convertJsonToModels(ticket.messages)
-  }
+  };
 }
 
 export function convertModelToJson(ticket: Ticket): TicketJson {
@@ -23,7 +23,7 @@ export function convertModelToJson(ticket: Ticket): TicketJson {
     title: ticket.title,
     content: ticket.content,
     messages: messagesHelper.convertModelsToJson(ticket.messages)
-  }
+  };
 }
 
 export function newFormGroup(): FormGroup {
@@ -38,11 +38,11 @@ export function newFormGroup(): FormGroup {
 
 export function newTicket(ticket?: Partial<Ticket>): Ticket {
   return {
-    ticketId: "",
-    authorUserId: "",
-    title: "",
-    content: "",
+    ticketId: '',
+    authorUserId: '',
+    title: '',
+    content: '',
     messages: [],
     ...ticket
-  }
+  };
 }

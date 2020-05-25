@@ -4,7 +4,7 @@ import Auth0Client from '@auth0/auth0-spa-js/dist/typings/Auth0Client';
 import { from, of, Observable, BehaviorSubject, combineLatest, throwError } from 'rxjs';
 import {tap, catchError, concatMap, shareReplay, mergeMap, map} from 'rxjs/operators';
 import { Router } from '@angular/router';
-import {IdToken} from "@auth0/auth0-spa-js/src/global";
+import {IdToken} from '@auth0/auth0-spa-js/src/global';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,10 @@ import {IdToken} from "@auth0/auth0-spa-js/src/global";
 export class AuthService {
   auth0Client$ = (from(
     createAuth0Client({
-      domain: "worldhoster.auth0.com",
-      client_id: "8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6",
+      domain: 'worldhoster.auth0.com',
+      client_id: '8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6',
       redirect_uri: `${window.location.origin}`,
-      scope: "openid"
+      scope: 'openid'
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1),
@@ -102,7 +102,7 @@ export class AuthService {
   logout() {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       client.logout({
-        client_id: "8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6",
+        client_id: '8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6',
         returnTo: `http://localhost:4200`
         // returnTo: `${window.location.origin}`
       });
