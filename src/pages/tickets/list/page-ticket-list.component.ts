@@ -20,6 +20,10 @@ export class PageTicketListComponent implements OnInit {
     });
   }
 
+  onCreateClick(): void {
+    this.router.navigate(['/ticket']);
+  }
+
   onRowClick(ticketId: string): void {
     this.router.navigate(['/ticket', ticketId]);
   }

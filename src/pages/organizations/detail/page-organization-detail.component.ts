@@ -23,7 +23,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
   dataLoaded: boolean;
 
-  constructor(public route: ActivatedRoute, public organizationService: OrganizationsService, public usersService: UsersService) { }
+  constructor(public route: ActivatedRoute, public organizationsService: OrganizationsService, public usersService: UsersService) { }
 
   ngOnInit(): void {
     this.dataLoaded = false;
@@ -35,7 +35,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     this.getOrganizationByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
         if (params["organizationId"]) {
-          return this.organizationService.getById$(params["organizationId"]);
+          return this.organizationsService.getById$(params["organizationId"]);
         } else {
           return of(organizationsHelper.newOrganization());
         }
@@ -56,7 +56,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     }
 
     const organization = this.organizationFormGroup.getRawValue();
-    this.organizationService.save$(organization).subscribe((organization: Organization) => {
+    this.organizationsService.save$(organization).subscribe((organization: Organization) => {
       this.organizationFormGroup.setValue(organization);
       this.userFormGroup.patchValue({ organization_id: organization.organizationId })
     })

@@ -1,12 +1,14 @@
-
-
 export interface Ticket {
   ticketId: string;
-  description: string;
+  authorUserId: string;
+  title: string;
+  content: string;
 }
 
 export interface TicketJson {
   ticket_id: string;
-  description: string;
+  author_user_id: string;
+  title: string;
+  content: string;
 }
 

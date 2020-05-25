@@ -1,9 +1,25 @@
-<ng-container *ngIf="route.snapshot.params.ticketId; then existingTicket else newTicket"></ng-container>
+<ng-container *ngIf="route.snapshot.params.ticketId; then existingTicketTp else newTicketTp"></ng-container>
 
-<ng-template #existingTicket>
+<ng-template #existingTicketTp>
   <header title="Ticket {{route.snapshot.params.ticketId}}"></header>
 </ng-template>
 
-<ng-template #newTicket>
+<ng-template #newTicketTp>
   <header title="New ticket"></header>
 </ng-template>
+
+<form [formGroup]="ticketFormGroup" (ngSubmit)="onTicketSubmit()">
+  <div class="form-group">
+    <label for="ticket_title">Title</label>
+    <input type="text" class="form-control" id="ticket_title" formControlName="title">
+    <div class="alert alert-danger" *ngIf="ticketFormGroup.get('title').touched && ticketFormGroup.get('title')?.errors?.required">Title is required.</div>
+  </div>
+  <div class="form-group">
+    <label for="user_firstname">Content</label>
+    <input type="text" class="form-control" id="user_firstname" formControlName="content">
+    <div class="alert alert-danger" *ngIf="ticketFormGroup.get('content').touched && ticketFormGroup.get('content')?.errors?.required">Content is required.</div>
+  </div>
+  <div>invalid: {{ticketFormGroup.invalid}}</div>
+  <div>pristine: {{ticketFormGroup.pristine}}</div>
+  <button class="btn btn-primary" type="submit" [disabled]="ticketFormGroup.invalid || ticketFormGroup.pristine">save ticket</button>
+</form>

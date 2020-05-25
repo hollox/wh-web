@@ -14,6 +14,18 @@ export class UsersService {
   constructor(private http: HttpClient, private authService: AuthService) {
   }
 
+  whoAmI(): Observable<User> {
+    return this.authService.getToken$().pipe(
+      mergeMap((token: string) => {
+        return this.http.post<UserJson>(`${environment.ticketsApiBaseUrl}v1/users/who-am-i`, null, {
+            headers: {
+              "Authorization": `Bearer ${token}`
+            }
+          }).pipe(
+          map(convertJsonToModel))
+      }));
+  }
+
   save$(user: User): Observable<User> {
     return this.authService.getToken$().pipe(
       mergeMap((token: string) => {
