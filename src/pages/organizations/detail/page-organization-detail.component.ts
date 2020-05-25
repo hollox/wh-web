@@ -30,6 +30,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
 
     this.organizationFormGroup = organizationsHelper.newFormGroup();
     this.userFormGroup = usersHelper.newFormGroup();
+    this.userFormGroup.disable();
 
     this.getOrganizationByIdSub = this.route.params.pipe(
       mergeMap((params: Params) => {
@@ -57,7 +58,6 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
     const organization = this.organizationFormGroup.getRawValue();
     this.organizationService.save$(organization).subscribe((organization: Organization) => {
       this.organizationFormGroup.setValue(organization);
-      console.log({org: this.organizationFormGroup.get('organizationId').value});
       this.userFormGroup.patchValue({ organization_id: organization.organizationId })
     })
   }
@@ -82,14 +82,15 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
   }
 
   onRowClick(user: User): void {
+    console.log({user});
     this.userFormGroup.setValue(user);
-    // this.userFormGroup.enable();
+    this.userFormGroup.enable();
   }
 
   onNewUserClick(): void {
-    const organizationId = this.organizationFormGroup.get("organization_id").value as string;
+    const organizationId = this.organizationFormGroup.get("organizationId").value as string;
     const user = usersHelper.newUser({organizationId});
     this.userFormGroup.setValue(user);
-    // this.userFormGroup.enable();
+    this.userFormGroup.enable();
   }
 }
