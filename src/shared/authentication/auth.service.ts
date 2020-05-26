@@ -103,8 +103,7 @@ export class AuthService {
     this.auth0Client$.subscribe((client: Auth0Client) => {
       client.logout({
         client_id: '8lLAkKhteLPvtDn3S8jjxKRWaVAaTsF6',
-        returnTo: `http://localhost:4200`
-        // returnTo: `${window.location.origin}`
+        returnTo: `https://www.worldhoster.live/`
       });
     });
   }
