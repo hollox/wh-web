@@ -72,7 +72,9 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
       const users = this.organizationFormGroup.get('users').value;
       const newUsers = this.replaceUser(u, users);
       this.organizationFormGroup.patchValue({ users: newUsers });
-      this.userFormGroup.setValue(u);
+
+      const blankUser = usersHelper.newUser({ organizationId: u.organizationId });
+      this.userFormGroup.reset(blankUser);
     });
   }
 
@@ -82,6 +84,7 @@ export class PageOrganizationDetailComponent implements OnInit, OnDestroy {
   }
 
   onRowClick(user: User): void {
+    console.log(user);
     this.userFormGroup.setValue(user);
     this.userFormGroup.enable();
   }
