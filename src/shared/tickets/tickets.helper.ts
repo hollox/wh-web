@@ -9,6 +9,7 @@ export function convertJsonToModels(tickets: TicketJson[]): Ticket[] {
 export function convertJsonToModel(ticket: TicketJson): Ticket {
   return {
     ticketId: ticket.ticket_id,
+    statusId: ticket.status_id,
     authorUserId: ticket.author_user_id,
     title: ticket.title,
     content: ticket.content,
@@ -19,6 +20,7 @@ export function convertJsonToModel(ticket: TicketJson): Ticket {
 export function convertModelToJson(ticket: Ticket): TicketJson {
   return {
     ticket_id: ticket.ticketId,
+    status_id: ticket.statusId,
     author_user_id: ticket.authorUserId,
     title: ticket.title,
     content: ticket.content,
@@ -29,6 +31,7 @@ export function convertModelToJson(ticket: Ticket): TicketJson {
 export function newFormGroup(): FormGroup {
   return new FormGroup({
     ticketId: new FormControl(null),
+    statusId: new FormControl(null),
     authorUserId: new FormControl(null, [Validators.required]),
     title: new FormControl(null, [Validators.required]),
     content: new FormControl(null, [Validators.required]),
@@ -39,6 +42,7 @@ export function newFormGroup(): FormGroup {
 export function newTicket(ticket?: Partial<Ticket>): Ticket {
   return {
     ticketId: '',
+    statusId: '',
     authorUserId: '',
     title: '',
     content: '',

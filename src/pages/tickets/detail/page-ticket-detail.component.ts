@@ -24,6 +24,10 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
 
   dataLoaded: boolean;
 
+  readonly TICKET_STATUS_OPEN = "f0894747-a11a-4915-9b2c-42ff98692cb3";
+  readonly TICKET_STATUS_IN_PROGRESS = "91342483-5f10-4558-9be2-4b024718eb30";
+  readonly TICKET_STATUS_COMPLETED = "daa7ab46-d3f4-4b42-8b47-30abe971f378";
+
   constructor(public route: ActivatedRoute,
               public ticketsService: TicketsService,
               public usersService: UsersService,
@@ -97,5 +101,13 @@ export class PageTicketDetailComponent implements OnInit, OnDestroy {
   replaceMessage(message: Message, messages: Message[]): Message[] {
     const filteredMessages = messages.filter(m => m.messageId !== message.messageId);
     return [...filteredMessages, message];
+  }
+
+  setStatus(ticketId: string, statusId: string): void {
+    this.ticketsService.setStatus$(ticketId, statusId).subscribe(isSuccess => {
+      if (isSuccess) {
+        this.ticketFormGroup.patchValue({statusId});
+      }
+    });
   }
 }

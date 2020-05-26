@@ -23,6 +23,8 @@
       <div class="alert alert-danger" *ngIf="ticketFormGroup.get('content').touched && ticketFormGroup.get('content')?.errors?.required">Content is required.</div>
     </div>
     <button class="btn btn-primary" type="submit" [disabled]="ticketFormGroup.invalid || ticketFormGroup.pristine">save ticket</button>
+    <button class="btn btn-secondary" type="button" [disabled]="!ticketFormGroup.get('ticketId').value || ticketFormGroup.get('statusId').value !== TICKET_STATUS_OPEN" (click)="setStatus(ticketFormGroup.get('ticketId').value, TICKET_STATUS_IN_PROGRESS)">Start ticket</button>
+    <button class="btn btn-secondary" type="button" [disabled]="!ticketFormGroup.get('ticketId').value || ticketFormGroup.get('statusId').value === TICKET_STATUS_COMPLETED" (click)="setStatus(ticketFormGroup.get('ticketId').value, TICKET_STATUS_COMPLETED)">Complete ticket</button>
   </form>
 
   <app-header title="Messages"></app-header>

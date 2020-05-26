@@ -7,6 +7,8 @@ import {AuthService} from '../authentication/auth.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 
+const NO_CONTENT = 204;
+
 @Injectable({
   providedIn: 'root'
 })
@@ -46,6 +48,20 @@ export class TicketsService {
             }
           }).pipe(
           map(convertJsonToModel));
+      }));
+  }
+
+  setStatus$(ticketId: string, statusId: string): Observable<boolean> {
+    return this.authService.getToken$().pipe(
+      mergeMap((token: string) => {
+        return this.http.post(`${environment.ticketsApiBaseUrl}v1/tickets/${ticketId}/status`,
+          {status_id: statusId}, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            },
+            observe: 'response'
+          }).pipe(
+          map(response => response.status === NO_CONTENT));
       }));
   }
 }
