@@ -1,14 +1,14 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
-import {OrganizationsService} from '../../../shared/organizations/organizations.service';
+import {OrganizationsService} from '../../../../shared/organizations/organizations.service';
 import {mergeMap} from 'rxjs/operators';
-import {Organization} from '../../../shared/organizations/organizations.models';
-import * as organizationsHelper from '../../../shared/organizations/organizations.helper';
+import {Organization} from '../../../../shared/organizations/organizations.models';
+import * as organizationsHelper from '../../../../shared/organizations/organizations.helper';
 import {of, Subscription} from 'rxjs';
-import * as usersHelper from '../../../shared/users/users.helper';
+import * as usersHelper from '../../../../shared/users/users.helper';
 import {FormGroup} from '@angular/forms';
-import {UsersService} from '../../../shared/users/users.service';
-import {User} from '../../../shared/users/users.models';
+import {UsersService} from '../../../../shared/users/users.service';
+import {User} from '../../../../shared/users/users.models';
 
 @Component({
   selector: 'app-page-organization-detail',

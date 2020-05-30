@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/authentication/auth.service';
+import { AuthService } from '../../../shared/authentication/auth.service';
 
 @Component({
-  selector: 'page-profile',
+  selector: 'app-page-profile',
   templateUrl: './page-profile.component.html',
   styleUrls: ['./page-profile.component.scss']
 })

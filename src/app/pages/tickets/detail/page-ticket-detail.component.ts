@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {FormGroup} from '@angular/forms';
-import {TicketsService} from '../../../shared/tickets/tickets.service';
-import {UsersService} from '../../../shared/users/users.service';
-import {Ticket} from '../../../shared/tickets/tickets.models';
-import * as ticketsHelper from '../../../shared/tickets/tickets.helper';
+import {TicketsService} from '../../../../shared/tickets/tickets.service';
+import {UsersService} from '../../../../shared/users/users.service';
+import {Ticket} from '../../../../shared/tickets/tickets.models';
+import * as ticketsHelper from '../../../../shared/tickets/tickets.helper';
 import {map, mergeMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
-import * as messagesHelper from '../../../shared/messages/messages.helper';
-import {Message} from '../../../shared/messages/messages.models';
-import {MessagesService} from '../../../shared/messages/messages.service';
+import * as messagesHelper from '../../../../shared/messages/messages.helper';
+import {Message} from '../../../../shared/messages/messages.models';
+import {MessagesService} from '../../../../shared/messages/messages.service';
 
 @Component({
   selector: 'page-ticket-detail',

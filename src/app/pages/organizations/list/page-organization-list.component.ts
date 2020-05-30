@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {OrganizationsService} from '../../../shared/organizations/organizations.service';
-import {Organization} from '../../../shared/organizations/organizations.models';
+import {OrganizationsService} from '../../../../shared/organizations/organizations.service';
+import {Organization} from '../../../../shared/organizations/organizations.models';
 
 @Component({
   selector: 'app-page-organization-list',
